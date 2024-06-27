@@ -15,6 +15,8 @@ import {
   VirtualizedList,
   ModalProps,
   Modal,
+  StatusBar,
+  Platform
 } from "react-native";
 
 import ImageItem from "./components/ImageItem/ImageItem";
@@ -170,6 +172,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
+    /** 
+     * Do thư viện gốc chưa tính toán height Status bar nên khi modal hiển thị, ảnh sẽ bị lệch xuống dưới
+     * vì vậy cần thêm đoạn này
+     * margin bottom không được, nên dùng -top =)) 
+     */
+    marginTop: Platform.OS === 'ios' ? -20 : -(StatusBar?.currentHeight|| 0),
   },
   header: {
     position: "absolute",
